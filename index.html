@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <title>Censo 2018 El Progreso (Dashboard)</title>
+  <script defer src="js/bootstrap.bundle.min.js"></script>
+
+</head>
+
+<body class="p-3 m-0 border-0 bd-example m-0 border-0" style="background-color: #dfddf3;">
+
+    <div class="bg-dark" style="background:#4B2C74;">
+    <h1 class="fw-bold text-center text-white m-0 py-4" style="font-size:2.5rem;">CENSO 2018 EL PROGRESO</h1>
+    </div>
+
+    <div class="d-flex align-items-center ms-md-4 mt-2 mt-md-0">
+      <label for="cmbMunicipio" class="text-white-50 me-2 mb-0">Municipio</label>
+      <select id="cmbMunicipio" class="form-select form-select-sm">
+        <option value="999" style="background:#f0e2ff;">Departamentos de El Progreso</option>
+        <option value="201" style="background:#f0e2ff;">Guastatoya</option>
+        <option value="202" style="background:#f0e2ff;">Morazán</option>
+        <option value="203" style="background:#f0e2ff;">San Agustín Acasaguastlán</option>
+        <option value="204" style="background:#f0e2ff;">San Cristóbal Acasaguastlán</option>
+        <option value="205" style="background:#f0e2ff;">El Jícaro</option>
+        <option value="206" style="background:#f0e2ff;">Sanarate</option>
+        <option value="208" style="background:#f0e2ff;">San Antonio la Paz</option>
+      </select>
+    </div>
+  </div>
+</div>
+
+  <main class="container my-4">
+
+    <div class="row g-3 align-items-stretch">
+      <div class="col-12 col-lg-8">
+        <div class="p-3 p-md-4 bg-white rounded-4 shadow-sm minh-120 d-flex flex-column justify-content-center">
+          <h1 class="h4 mb-2">Indicadores — <span id="lblTitulo" class="fw-bold">El Progreso</span></h1>
+          <div class="text-muted">
+            <span class="me-3">Fuente: <a class="link-secondary" href="https://censo2018.ine.gob.gt/mapas" target="_blank" rel="noopener">INE Censo 2018 Página Oficial</a></span>
+            <span class="me-3">Código depto: <span id="lblDepto">2</span></span>
+            <span>Código muni: <span id="lblMuni">999</span></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12 col-lg-4">
+        <div class="p-3 p-md-4 bg-white rounded-4 shadow-sm minh-120 d-flex flex-column justify-content-between">
+          <div class="d-flex justify-content-between">
+            <span class="text-muted">Última consulta</span>
+            <span id="lblFecha" class="fw-semibold"></span>
+          </div>
+          <div class="small">
+            Diseñado por: <strong>Nataly Michell Cux Recinos 1890-22-18009</strong><br>
+            Repositorio en GitHub: <a class="link-secondary" href="https://github.com/natalycux/Nataly-1890-22-18009.git" target="_blank" rel="noopener">github.com/natalycux/Nataly-1890-22-18009</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <section class="mt-4">
+      <h2 class="h5 section-title">Resumen general</h2>
+      <div id="cardsResumen" class="row g-3 mt-1">
+        <!-- Se generan por JS -->
+      </div>
+    </section>
+
+
+    <section class="mt-4">
+      <h2 class="h5 section-title">Distribuciones</h2>
+      <div class="row g-3 mt-1">
+        <!-- Sexo -->
+        <div class="col-12 col-lg-6">
+          <div class="card h-100">
+            <div class="card-header fw-bold">Población por sexo</div>
+            <div class="card-body">
+              <table class="table table-sm align-middle mb-3" id="tblSexo"></table>
+              <div class="progress" role="progressbar" aria-label="Hombres vs Mujeres">
+                <div id="barH" class="progress-bar" style="width:0%"></div>
+                <div id="barM" class="progress-bar bg-secondary" style="width:0%"></div>
+              </div>
+              <div class="d-flex justify-content-between small mt-1">
+                <span id="lblPorcH">—</span><span id="lblPorcM">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Áreas -->
+        <div class="col-12 col-lg-6">
+          <div class="card h-100">
+            <div class="card-header fw-bold">Población por área</div>
+            <div class="card-body">
+              <table class="table table-sm align-middle mb-3" id="tblArea"></table>
+              <div class="progress">
+                <div id="barUrb" class="progress-bar" style="width:0%"></div>
+                <div id="barRur" class="progress-bar bg-secondary" style="width:0%"></div>
+              </div>
+              <div class="d-flex justify-content-between small mt-1">
+                <span id="lblPorcUrb">—</span><span id="lblPorcRur">—</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Edades -->
+        <div class="col-12 col-lg-6">
+          <div class="card h-100">
+            <div class="card-header fw-bold">Población por grandes grupos de edad</div>
+            <div class="card-body">
+              <table class="table table-sm" id="tblEdad"></table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pueblos -->
+        <div class="col-12 col-lg-6">
+          <div class="card h-100">
+            <div class="card-header fw-bold">Población por pueblos</div>
+            <div class="card-body">
+              <table class="table table-sm" id="tblPueblos"></table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    
+  </main>
+
+  <footer class="bg-dark text-white text-center py-3 mt-4">
+    Dashboard del Censo El Progreso
+
+</body>
+</html>
