@@ -50,6 +50,8 @@
       height: 100%;
       background-color: var(--card-bg);
     }
+
+
     
     .kpi-card .value {
       font-size: 1.75rem;
@@ -134,9 +136,9 @@
     </div>
   </header>
 
-  <main class="container my-4">
-    <div class="row">
-        <div class="col-12 col-md-3 mb-4 mb-md-0">
+  <main class="container my-4 align-items-center justify-content-center" id="contenedor">
+    <div class="row g-3 aling-items-end">
+    
             <div class="sidebar-card">
  
                 <div class="card mb-4">
@@ -161,7 +163,7 @@
 
 
         <div class="col-12 col-md-9">
-            <!-- Info Principal -->
+
            <div id="indicadores" class="card mb-4 no-stretch">
               <div class="card-body">
                 <h2 id="lblTitulo" class="h3">Cargando...</h2>
@@ -170,13 +172,13 @@
             </div>
 
             <div id="kpiContainer" class="row g-3 mb-4">
-              <!-- KPIs se insertan aquí -->
+
             </div>
 
 
             <h4 id="distribuciones" class="mt-5 mb-3">Distribuciones</h4>
             <div class="row g-4 mb-4">
-              <!-- Sexo -->
+
               <div class="col-12 col-lg-4">
                 <div class="card">
                   <div class="card-header fw-bold">Población por Sexo</div>
@@ -193,7 +195,7 @@
                   </div>
                 </div>
               </div>
-              <!-- Área -->
+
               <div class="col-12 col-lg-4">
                 <div class="card">
                   <div class="card-header fw-bold">Población por Área</div>
@@ -210,7 +212,7 @@
                   </div>
                 </div>
               </div>
-              <!-- Edades -->
+
               <div class="col-12 col-lg-4">
                 <div class="card">
                   <div class="card-header fw-bold">Población por Grupos de Edad</div>
@@ -221,7 +223,6 @@
               </div>
             </div>
 
-            <!-- Tablas Detalladas -->
             <h4 id="tablas" class="mt-5 mb-3">Tablas Detalladas</h4>
             <div class="row g-4">
                 <div class="col-12 col-xl-6">
@@ -258,11 +259,12 @@
             </div>
         </div>
     </div>
-  </main>
+  
 
   <footer class="text-center py-4 mt-4">
     Diseñado por: <strong>Nataly Michell Cux Recinos — 1890-22-18009</strong>
   </footer>
+  </main>
 
   <script>
     const API_BASE = 'https://censopoblacion.azurewebsites.net/API/indicadores/2/';
@@ -403,6 +405,7 @@
       btnCargar.addEventListener('click', triggerLoad);
     });
   </script>
+
 
 </body>
 </html>
