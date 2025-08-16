@@ -1,139 +1,408 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/bootstrap.min.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+
   <title>Censo 2018 El Progreso (Dashboard)</title>
   <script defer src="js/bootstrap.bundle.min.js"></script>
+  
+  <style>
+    :root {
+      --bg: #f4f6f9;
+      --morado1: #2c203f;
+      --morado2: #4B2C74;
+      --accent-700: #713BA7;
+      --accent-500: #8B5FBF;
+      --accent-300: #A176D3;
+      --lavender: #F5F0F9;
+      --ink: #1f1f2e;
+      --muted: #6c757d;
+      --card-bg: #ffffff;
+      --card-border: #e9ecef;
+      --text-soft: #a0aec0;
+    }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", "Liberation Sans", Arial, sans-serif;
+    }
+
+    .main-header {
+      background-color: var(--morado1);
+      border-bottom: 1px solid var(--morado2);
+      color: white;
+      padding: 0.75rem 0;
+    }
+
+    .card {
+      border: 1px solid var(--card-border);
+      border-radius: 0.75rem;
+      box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, .075);
+      height: 100%;
+      background-color: var(--card-bg);
+    }
+    
+    .kpi-card .value {
+      font-size: 1.75rem;
+      font-weight: 700;
+      color: var(--morado2);
+    }
+
+    .kpi-card .label {
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+    
+    .kpi-card .subtitle {
+        font-size: 0.75rem;
+        color: var(--text-soft);
+    }
+
+    .table-dark-custom {
+      --bs-table-bg: var(--morado1);
+      --bs-table-color: var(--lavender);
+      --bs-table-border-color: var(--morado2);
+      --bs-table-striped-bg: #35274e;
+      --bs-table-striped-color: white;
+      --bs-table-hover-bg: var(--morado2);
+      --bs-table-hover-color: white;
+      margin-bottom: 0;
+    }
+
+    .table-dark-custom th {
+      font-weight: normal;
+    }
+    
+    .table-dark-custom thead th {
+        color: var(--accent-300);
+        font-weight: bold;
+    }
+
+    .progress {
+        height: 0.75rem;
+        background-color: var(--card-border);
+    }
+    
+    .progress-bar.bg-accent-500 { background-color: var(--accent-500); }
+    .progress-bar.bg-accent-300 { background-color: var(--accent-300); }
+
+    .btn-primary {
+        background-color: var(--morado2);
+        border-color: var(--morado2);
+    }
+    .btn-primary:hover {
+        background-color: var(--accent-700);
+        border-color: var(--accent-700);
+    }
+
+    .sidebar-card {
+        position: sticky;
+        top: 1.5rem;
+    }
+
+    .category-link {
+        color: var(--morado2);
+        text-decoration: none;
+        font-weight: 500;
+    }
+    .category-link:hover {
+        color: var(--accent-700);
+    }
+
+    footer {
+      color: var(--muted);
+      font-size: 0.875rem;
+    }
+  </style>
 </head>
 
-<body class="p-3 m-0 border-0 bd-example m-0 border-0" style="background-color: #dfddf3;">
 
-    <div class="bg-dark" style="background:#4B2C74;">
-    <h1 class="fw-bold text-center text-white m-0 py-4" style="font-size:2.5rem;">CENSO 2018 EL PROGRESO</h1>
-    </div>
+<body>
 
-    <div class="d-flex align-items-center ms-md-4 mt-2 mt-md-0">
-      <label for="cmbMunicipio" class="text-white-50 me-2 mb-0">Municipio</label>
-      <select id="cmbMunicipio" class="form-select form-select-sm">
-        <option value="999" style="background:#f0e2ff;">Departamentos de El Progreso</option>
-        <option value="201" style="background:#f0e2ff;">Guastatoya</option>
-        <option value="202" style="background:#f0e2ff;">Morazán</option>
-        <option value="203" style="background:#f0e2ff;">San Agustín Acasaguastlán</option>
-        <option value="204" style="background:#f0e2ff;">San Cristóbal Acasaguastlán</option>
-        <option value="205" style="background:#f0e2ff;">El Jícaro</option>
-        <option value="206" style="background:#f0e2ff;">Sanarate</option>
-        <option value="208" style="background:#f0e2ff;">San Antonio la Paz</option>
-      </select>
+  <header class="main-header">
+    <div class="container">
+      <a class="navbar-brand text-light" href="#"><i class="bi bi-bar-chart-line-fill"></i> Indicadores • El Progreso</a>
     </div>
-  </div>
-</div>
+  </header>
 
   <main class="container my-4">
-
-    <div class="row g-3 align-items-stretch">
-      <div class="col-12 col-lg-8">
-        <div class="p-3 p-md-4 bg-white rounded-4 shadow-sm minh-120 d-flex flex-column justify-content-center">
-          <h1 class="h4 mb-2">Indicadores — <span id="lblTitulo" class="fw-bold">El Progreso</span></h1>
-          <div class="text-muted">
-            <span class="me-3">Fuente: <a class="link-secondary" href="https://censo2018.ine.gob.gt/mapas" target="_blank" rel="noopener">INE Censo 2018 Página Oficial</a></span>
-            <span class="me-3">Código depto: <span id="lblDepto">2</span></span>
-            <span>Código muni: <span id="lblMuni">999</span></span>
-          </div>
+    <div class="row">
+        <div class="col-12 col-md-3 mb-4 mb-md-0">
+            <div class="sidebar-card">
+ 
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <label for="cmbMunicipio" class="form-label fw-bold">Seleccionar Lugar</label>
+                        <select id="cmbMunicipio" class="form-select mb-2">
+                          <option value="999">Departamento (El Progreso)</option>
+                          <option value="201">Guastatoya</option>
+                          <option value="202">Morazán</option>
+                          <option value="203">San Agustín Acasaguastlán</option>
+                          <option value="204">San Cristóbal Acasaguastlán</option>
+                          <option value="205">El Jícaro</option>
+                          <option value="206">Sansare</option>
+                          <option value="207">Sanarate</option>
+                          <option value="208">San Antonio la Paz</option>
+                        </select>
+                        <button id="btnCargar" class="btn btn-primary w-100"><i class="bi bi-arrow-clockwise"></i> Cargar</button>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
 
-      <div class="col-12 col-lg-4">
-        <div class="p-3 p-md-4 bg-white rounded-4 shadow-sm minh-120 d-flex flex-column justify-content-between">
-          <div class="d-flex justify-content-between">
-            <span class="text-muted">Última consulta</span>
-            <span id="lblFecha" class="fw-semibold"></span>
-          </div>
-          <div class="small">
-            Diseñado por: <strong>Nataly Michell Cux Recinos 1890-22-18009</strong><br>
-            Repositorio en GitHub: <a class="link-secondary" href="https://github.com/natalycux/Nataly-1890-22-18009.git" target="_blank" rel="noopener">github.com/natalycux/Nataly-1890-22-18009</a>
-          </div>
+
+        <div class="col-12 col-md-9">
+            <!-- Info Principal -->
+            <div id="indicadores" class="card mb-4">
+              <div class="card-body">
+                <h2 id="lblTitulo" class="h3">Cargando...</h2>
+                <p id="lblSubtitulo" class="text-muted mb-0">—</p>
+              </div>
+            </div>
+
+            <div id="kpiContainer" class="row g-3 mb-4">
+              <!-- KPIs se insertan aquí -->
+            </div>
+
+
+            <h4 id="distribuciones" class="mt-5 mb-3">Distribuciones</h4>
+            <div class="row g-4 mb-4">
+              <!-- Sexo -->
+              <div class="col-12 col-lg-4">
+                <div class="card">
+                  <div class="card-header fw-bold">Población por Sexo</div>
+                  <div class="card-body">
+                    <table class="table table-sm mb-2" id="tblSexo"></table>
+                    <div class="progress mt-3" role="progressbar">
+                      <div id="barH" class="progress-bar bg-accent-500" style="width:0%"></div>
+                      <div id="barM" class="progress-bar bg-accent-300" style="width:0%"></div>
+                    </div>
+                    <div class="d-flex justify-content-between small mt-1">
+                        <span><i class="bi bi-square-fill" style="color:var(--accent-500)"></i> Hombres</span>
+                        <span>Mujeres <i class="bi bi-square-fill" style="color:var(--accent-300)"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Área -->
+              <div class="col-12 col-lg-4">
+                <div class="card">
+                  <div class="card-header fw-bold">Población por Área</div>
+                  <div class="card-body">
+                    <table class="table table-sm mb-2" id="tblArea"></table>
+                    <div class="progress mt-3" role="progressbar">
+                      <div id="barUrb" class="progress-bar bg-accent-500" style="width:0%"></div>
+                      <div id="barRur" class="progress-bar bg-accent-300" style="width:0%"></div>
+                    </div>
+                     <div class="d-flex justify-content-between small mt-1">
+                        <span><i class="bi bi-square-fill" style="color:var(--accent-500)"></i> Urbana</span>
+                        <span>Rural <i class="bi bi-square-fill" style="color:var(--accent-300)"></i></span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- Edades -->
+              <div class="col-12 col-lg-4">
+                <div class="card">
+                  <div class="card-header fw-bold">Población por Grupos de Edad</div>
+                  <div class="card-body">
+                    <table class="table table-sm" id="tblEdad"></table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tablas Detalladas -->
+            <h4 id="tablas" class="mt-5 mb-3">Tablas Detalladas</h4>
+            <div class="row g-4">
+                <div class="col-12 col-xl-6">
+                    <div class="card">
+                        <div class="card-header fw-bold" style="background-color: var(--morado1); color: white;">Educación</div>
+                        <div class="card-body p-0">
+                            <table class="table table-dark-custom table-striped">
+                                <tbody id="tblEducacion"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xl-6">
+                    <div class="card">
+                        <div class="card-header fw-bold" style="background-color: var(--morado1); color: white;">Hogares y Vivienda</div>
+                        <div class="card-body p-0">
+                            <table class="table table-dark-custom table-striped">
+                                <tbody id="tblHogares"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header fw-bold" style="background-color: var(--morado1); color: white;">Distribución Étnica</div>
+                        <div class="card-body p-0">
+                            <table class="table table-dark-custom table-striped">
+                                <thead id="tblPueblosHead"></thead>
+                                <tbody id="tblPueblosBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-
-
-    <section class="mt-4">
-      <h2 class="h5 section-title">Resumen general</h2>
-      <div id="cardsResumen" class="row g-3 mt-1">
-        <!-- Se generan por JS -->
-      </div>
-    </section>
-
-
-    <section class="mt-4">
-      <h2 class="h5 section-title">Distribuciones</h2>
-      <div class="row g-3 mt-1">
-        <!-- Sexo -->
-        <div class="col-12 col-lg-6">
-          <div class="card h-100">
-            <div class="card-header fw-bold">Población por sexo</div>
-            <div class="card-body">
-              <table class="table table-sm align-middle mb-3" id="tblSexo"></table>
-              <div class="progress" role="progressbar" aria-label="Hombres vs Mujeres">
-                <div id="barH" class="progress-bar" style="width:0%"></div>
-                <div id="barM" class="progress-bar bg-secondary" style="width:0%"></div>
-              </div>
-              <div class="d-flex justify-content-between small mt-1">
-                <span id="lblPorcH">—</span><span id="lblPorcM">—</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Áreas -->
-        <div class="col-12 col-lg-6">
-          <div class="card h-100">
-            <div class="card-header fw-bold">Población por área</div>
-            <div class="card-body">
-              <table class="table table-sm align-middle mb-3" id="tblArea"></table>
-              <div class="progress">
-                <div id="barUrb" class="progress-bar" style="width:0%"></div>
-                <div id="barRur" class="progress-bar bg-secondary" style="width:0%"></div>
-              </div>
-              <div class="d-flex justify-content-between small mt-1">
-                <span id="lblPorcUrb">—</span><span id="lblPorcRur">—</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Edades -->
-        <div class="col-12 col-lg-6">
-          <div class="card h-100">
-            <div class="card-header fw-bold">Población por grandes grupos de edad</div>
-            <div class="card-body">
-              <table class="table table-sm" id="tblEdad"></table>
-            </div>
-          </div>
-        </div>
-
-        <!-- Pueblos -->
-        <div class="col-12 col-lg-6">
-          <div class="card h-100">
-            <div class="card-header fw-bold">Población por pueblos</div>
-            <div class="card-body">
-              <table class="table table-sm" id="tblPueblos"></table>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    
   </main>
 
-  <footer class="bg-dark text-white text-center py-3 mt-4">
-    Dashboard del Censo El Progreso
+  <footer class="text-center py-4 mt-4">
+    Diseñado por: <strong>Nataly Michell Cux Recinos — 1890-22-18009</strong>
+  </footer>
+
+  <script>
+    const API_BASE = 'https://censopoblacion.azurewebsites.net/API/indicadores/2/';
+    const $ = (sel) => document.querySelector(sel);
+    const nf = new Intl.NumberFormat('es-GT');
+    const pf = (x) => (Number(x ?? 0)).toFixed(2) + '%';
+    const pick = (o, ...keys) => keys.find(k => o && Object.hasOwn(o, k)) ?
+      o[keys.find(k => Object.hasOwn(o, k))] :
+      undefined;
+
+    function doubleParse(payload) {
+      try {
+        const first = typeof payload === 'string' ? JSON.parse(payload) : payload;
+        return typeof first === 'string' ? JSON.parse(first) : first;
+      } catch {
+        return JSON.parse(String(payload || '{}'));
+      }
+    }
+
+    function kpiCard(label, value, subtitle = '') {
+      return `
+      <div class="col-6 col-md-6 col-lg-4 col-xl-3">
+        <div class="card kpi-card">
+          <div class="card-body text-center">
+            <div class="value">${value}</div>
+            <div class="label">${label}</div>
+            ${subtitle ? `<div class="subtitle">${subtitle}</div>` : ''}
+          </div>
+        </div>
+      </div>`;
+    }
+
+    function tableRow(label, value, isPercent = false) {
+        return `<tr>
+            <th>${label}</th>
+            <td class="text-end">${isPercent ? pf(value) : nf.format(value ?? 0)}</td>
+        </tr>`;
+    }
+    
+    function tableRow3Col(col1, col2, col3) {
+      return `<tr>
+        <th>${col1}</th>
+        <td class="text-end">${nf.format(col2 ?? 0)}</td>
+        <td class="text-end">${pf(col3)}</td>
+      </tr>`;
+    }
+
+    function render(data) {
+      // Info Principal
+      $('#lblTitulo').textContent = data.nombre;
+      $('#lblSubtitulo').textContent = `Capital: ${data.capital || 'N/A'} • Depto ID: ${data.depto_id} • Municipio ID: ${data.municipio_id}`;
+
+      // KPIs
+      const densidad = (data.ext_territorial ? (Number(data.pob_total) / Number(data.ext_territorial)) : 0);
+      const viviendas = pick(data, 'viviendas_part', 'viviendas_particulares', 'viviendas_part_');
+      const kpis = [
+        kpiCard('Población total', nf.format(data.pob_total)),
+        kpiCard('Extensión (km²)', nf.format(data.ext_territorial)),
+        kpiCard('Densidad', nf.format(Number(densidad).toFixed(1)), 'hab/km²'),
+        kpiCard('Edad promedio', (data.edad_promedio ?? 0).toFixed(2)),
+        kpiCard('Índice dependencia', (data.indice_dependencia ?? 0).toFixed(2), 'dependientes/activos'),
+        kpiCard('Índice masculinidad', (data.indice_masculinidad ?? 0).toFixed(2), 'hombres por 100 mujeres'),
+        kpiCard('Viviendas', nf.format(viviendas ?? 0)),
+        kpiCard('Personas / hogar', (data.prom_personas_hogar ?? 0).toFixed(2))
+      ];
+      $('#kpiContainer').innerHTML = kpis.join('');
+
+      // Distribuciones (tablas y barras)
+      // Sexo
+      $('#tblSexo').innerHTML = `<tbody>${tableRow3Col('Hombres', data.total_sexo_hombre, data.porc_sexo_hombre)}${tableRow3Col('Mujeres', data.total_sexo_mujeres, data.porc_sexo_mujeres)}</tbody>`;
+      $('#barH').style.width = `${Number(data.porc_sexo_hombre || 0)}%`;
+      $('#barM').style.width = `${Number(data.porc_sexo_mujeres || 0)}%`;
+
+      // Área
+      $('#tblArea').innerHTML = `<tbody>${tableRow3Col('Urbana', data.total_sector_urbano, data.porc_sector_urbano)}${tableRow3Col('Rural', data.total_sector_rural, data.porc_sector_rural)}</tbody>`;
+      $('#barUrb').style.width = `${Number(data.porc_sector_urbano || 0)}%`;
+      $('#barRur').style.width = `${Number(data.porc_sector_rural || 0)}%`;
+
+      // Edades
+      $('#tblEdad').innerHTML = `<tbody>${tableRow3Col('0–14 años', data.pob_edad_014, data.porc_edad_014)}${tableRow3Col('15–64 años', data.pob_edad_1564, data.porc_edad_1564)}${tableRow3Col('65+ años', data.pob_edad_65, data.porc_edad_65)}</tbody>`;
+      
+      // Tablas detalladas
+      // Educación
+      $('#tblEducacion').innerHTML = `
+        ${tableRow('Años promedio de estudio', (data.anios_prom_estudio ?? 0).toFixed(2))}
+        ${tableRow('Analfabetismo', data.analfabetismo, true)}`;
+        
+      // Hogares
+      $('#tblHogares').innerHTML = `
+        ${tableRow('Total de hogares', data.total_hogares)}
+        ${tableRow('Jefas de hogar', data.porc_jefas_hogar, true)}`;
+
+      // Pueblos
+      $('#tblPueblosHead').innerHTML = `<tr><th>Pueblo</th><th class="text-end">Población</th><th class="text-end">Porcentaje</th></tr>`;
+      $('#tblPueblosBody').innerHTML = `
+            ${tableRow3Col('Maya', data.pob_pueblo_maya, data.porc_pueblo_maya)}
+            ${tableRow3Col('Garífuna', data.pob_pueblo_garifuna, data.porc_pueblo_garifuna)}
+            ${tableRow3Col('Xinka', data.pob_pueblo_xinca, data.porc_pueblo_xinca)}
+            ${tableRow3Col('Afrodescendiente', data.pob_pueblo_afrodescendiente, data.porc_pueblo_afrodescendiente)}
+            ${tableRow3Col('Ladino', data.pob_pueblo_ladino, data.porc_pueblo_ladino)}
+            ${tableRow3Col('Extranjero', data.pob_pueblo_extranjero, data.porc_pueblo_extranjero)}`;
+    }
+
+    async function cargar(codigo) {
+      const url = API_BASE + codigo;
+      const btn = $('#btnCargar');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...';
+      
+      $('#kpiContainer').innerHTML = '<p class="text-muted col-12">Cargando datos...</p>';
+      $('#lblTitulo').textContent = 'Cargando...';
+      $('#lblSubtitulo').textContent = '...';
+
+
+      try {
+        const payload = await fetch(url).then(r => r.json());
+        const data = doubleParse(payload);
+        render(data);
+      } catch (e) {
+        console.error(e);
+        $('#kpiContainer').innerHTML = '<div class="col-12"><div class="alert alert-danger">No se pudo cargar la información. Revise la consola para más detalles.</div></div>';
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<i class="bi bi-arrow-clockwise"></i> Cargar';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const cmbMunicipio = $('#cmbMunicipio');
+      const btnCargar = $('#btnCargar');
+
+      // Carga inicial
+      cargar(cmbMunicipio.value);
+
+      // Evento de carga
+      const triggerLoad = () => cargar(cmbMunicipio.value);
+      cmbMunicipio.addEventListener('change', triggerLoad);
+      btnCargar.addEventListener('click', triggerLoad);
+    });
+  </script>
 
 </body>
 </html>
